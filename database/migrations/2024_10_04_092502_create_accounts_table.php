@@ -13,14 +13,16 @@ class CreateAccountsTable extends Migration
      */
     public function up()
     {
-        Schema::create('accounts', function (Blueprint $table) {
-            $table->id();                                 // Auto-incrementing primary key
-            $table->string('name');                       // Account name
-            $table->string('industry')->nullable();       // Industry of the account
-            $table->string('size')->nullable();           // Size of the organization
-            $table->string('location')->nullable();       // Location of the organization
-            $table->timestamps();                         // Timestamps: created_at, updated_at
-        });
+        if (!Schema::hasTable('accounts')) {
+            Schema::create('accounts', function (Blueprint $table) {
+                $table->id();
+                $table->string('name');
+                $table->string('industry')->nullable();
+                $table->string('size')->nullable();
+                $table->string('location')->nullable();
+                $table->timestamps();
+            });
+        } // <-- Closing bracket for the if statement
     }
 
     /**
